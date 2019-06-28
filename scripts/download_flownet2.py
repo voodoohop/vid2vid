@@ -2,12 +2,12 @@ import os
 from download_gdrive import *
 import torch
 
-if torch.__version__ == '0.4.0':
+"""if torch.__version__ == '0.4.0':
 	file_id = '1F2h_6e8gyTqxnbmFFW72zsxx_JX0dKFo'	
 	file_name = 'flownet2_pytorch_040.zip'
 else:
 	file_id = '1gKwE1Ad41TwtAzwDcN3dYa_S6DcVyiSl'
-	file_name = 'flownet2_pytorch_041.zip'
+	file_name = 'flownet2_pytorch_041.zip'"""
 
 chpt_path = './models/'
 if not os.path.isdir(chpt_path):
