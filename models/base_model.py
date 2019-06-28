@@ -1,3 +1,4 @@
+import numpy as np
 import os, sys
 import torch
 from .networks import get_grid
