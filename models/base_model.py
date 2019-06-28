@@ -153,8 +153,9 @@ class BaseModel(torch.nn.Module):
         
     def update_learning_rate(self, epoch):        
         lr = self.opt.lr * (1 - (epoch - self.opt.niter) / self.opt.niter_decay)
-        for param_group in self.optimizer_D.param_groups:
-            param_group['lr'] = lr
+        if self.optimizer_D:
+            for param_group in self.optimizer_D.param_groups:
+                param_group['lr'] = lr
         print('update learning rate: %f -> %f' % (self.old_lr, lr))
         self.old_lr = lr
 
