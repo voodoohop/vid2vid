@@ -6,8 +6,7 @@ import torch.nn as nn
 import numpy as np
 import fractions
 import sys
-sys.path.insert(0,'..')
-from data import data_loader
+
 
 def lcm(a,b): return abs(a * b)/fractions.gcd(a,b) if a and b else 0
 
@@ -105,7 +104,7 @@ def create_optimizer(opt, models):
             optimizer_D_T.append(getattr(modelD.module, 'optimizer_D_T'+str(s)))
     return modelG, modelD, flowNet, optimizer_G, optimizer_D, optimizer_D_T
 
-def init_params(opt, modelG, modelD, dataset_size):
+def init_params(opt, modelG, modelD, dataset_size, data_loader):
     iter_path = os.path.join(opt.checkpoints_dir, opt.name, 'iter.txt')
     start_epoch, epoch_iter = 1, 0
     ### if continue training, recover previous states
