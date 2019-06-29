@@ -5,6 +5,10 @@ import torch
 import torch.nn as nn
 import numpy as np
 import fractions
+import sys
+sys.path.insert(0,'..')
+from data.data_loader import CreateDataLoader
+
 def lcm(a,b): return abs(a * b)/fractions.gcd(a,b) if a and b else 0
 
 def wrap_model(opt, modelG, modelD, flowNet):
