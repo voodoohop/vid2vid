@@ -7,7 +7,7 @@ import numpy as np
 import fractions
 import sys
 sys.path.insert(0,'..')
-from data.data_loader import CreateDataLoader
+import data.data_loader
 
 def lcm(a,b): return abs(a * b)/fractions.gcd(a,b) if a and b else 0
 
