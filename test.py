@@ -29,8 +29,11 @@ input_nc = 1 if opt.label_nc != 0 else opt.input_nc
 save_dir = os.path.join(opt.results_dir, opt.name, '%s_%s' % (opt.phase, opt.which_epoch))
 print('Doing %d frames' % len(dataset))
 
-enumerated = enumerate(dataset)
-input_frame, i = enumerated[0]
+input_frame = False
+for data,i in enumerate(dataset):
+    if i == 0:
+        input_frame = data
+
 print(input_frame)
 model.fake_B_prev = None
 for i in range(0, opt.how_many):
