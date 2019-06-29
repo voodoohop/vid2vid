@@ -30,7 +30,7 @@ save_dir = os.path.join(opt.results_dir, opt.name, '%s_%s' % (opt.phase, opt.whi
 print('Doing %d frames' % len(dataset))
 
 input_frame = False
-for data,i in enumerate(dataset):
+for i,data in enumerate(dataset):
     if i == 0:
         input_frame = data
 
