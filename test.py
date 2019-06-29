@@ -48,8 +48,8 @@ for i in range(0, opt.how_many):
     inst = Variable(input_frame['inst']).view(1, -1, 1, height, width) if len(input_frame['inst'].size()) > 2 else None
     generated = model.inference(A, B, inst)
     
-    input_frame['A'] = generated[1].data
-    input_frame['B'] = generated[0].data
+    input_frame['A'] = util.tensor2im(generated[1].data[0]))
+    input_frame['B'] = util.tensor2im(generated[0].data[0]))
 
     if opt.label_nc != 0:
         real_A = util.tensor2label(generated[1], opt.label_nc)
