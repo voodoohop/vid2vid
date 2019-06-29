@@ -28,18 +28,25 @@ input_nc = 1 if opt.label_nc != 0 else opt.input_nc
 
 save_dir = os.path.join(opt.results_dir, opt.name, '%s_%s' % (opt.phase, opt.which_epoch))
 print('Doing %d frames' % len(dataset))
-for i, data in enumerate(dataset):
+
+input_frame = dataset[0]['A']
+print(input_frame)
+model.fake_B_prev = None
+for i in range(0, opt.how_many):
     if i >= opt.how_many:
         break    
-    if data['change_seq']:
-        model.fake_B_prev = None
+    #if input_frame['change_seq']:
 
-    _, _, height, width = data['A'].size()
-    A = Variable(data['A']).view(1, -1, input_nc, height, width)
-    B = Variable(data['B']).view(1, -1, opt.output_nc, height, width) if len(data['B'].size()) > 2 else None
-    inst = Variable(data['inst']).view(1, -1, 1, height, width) if len(data['inst'].size()) > 2 else None
+
+    _, _, height, width = input_frame['A'].size()
+    A = Variable(input_frame['A']).view(1, -1, input_nc, height, width)
+    B = Variable(input_frame['B']).view(1, -1, opt.output_nc, height, width) if len(input_frame['B'].size()) > 2 else None
+    inst = Variable(input_frame['inst']).view(1, -1, 1, height, width) if len(input_frame['inst'].size()) > 2 else None
     generated = model.inference(A, B, inst)
     
+    input_frame['A'] = generated[1]
+    input_frame['B'] = generated[0]
+
     if opt.label_nc != 0:
         real_A = util.tensor2label(generated[1], opt.label_nc)
     else:
@@ -49,6 +56,6 @@ for i, data in enumerate(dataset):
     visual_list = [('real_A', real_A), 
                    ('fake_B', util.tensor2im(generated[0].data[0]))]
     visuals = OrderedDict(visual_list) 
-    img_path = data['A_path']
+    img_path = "./results/res_{:04d}.png".format(1)
     print('process image... %s' % img_path)
     visualizer.save_images(save_dir, visuals, img_path)
